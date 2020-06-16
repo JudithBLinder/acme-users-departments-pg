@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const { getAllUsers } = require('../db/db');
 
 const apiRouter = Router();
 
@@ -8,6 +9,14 @@ apiRouter.get('/health', (req, res) => {
     message: 'Application is awake and healthy',
   });
 });
+
+apiRouter.get('/users', async (req, res) => {
+  const users = await getAllUsers();
+
+  res.send({ users });
+});
+
+
 
 // TODO: Does your api want more routes? Why not here?
 

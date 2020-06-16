@@ -11,7 +11,10 @@ const { API_URL } = process.env;
 
 // TODO: I can't stress enough, you can delete everything in this component. None of it matters. Its just meant to be an example of writing react inside of here. You can add more files with more components, and import them into this one.
 class App extends Component {
-  state = { loaded: null };
+  state = { 
+    loaded: null,
+    users: [] 
+  };
 
   componentDidMount() {
     // Creates a race between a 5 second timeout and a call to the API. Allows us to detect the call hanging.
@@ -31,6 +34,15 @@ class App extends Component {
         this.setState({
           loaded: false,
         });
+      });
+    
+    fetch(`${API_URL}/api/users`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          users: data,
+        })
+        console.log(this.state);
       });
   }
 
